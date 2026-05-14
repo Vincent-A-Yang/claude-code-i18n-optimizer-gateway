@@ -1,59 +1,68 @@
 <svg width="1600" height="640" viewBox="0 0 1600 640" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
   <title id="title">Claude-Code-ZH</title>
-  <desc id="desc">Claude Desktop and Claude Code Chinese localization, optimization, MCP migration and third-party model gateway guide.</desc>
+  <desc id="desc">Claude Desktop and Claude Code Chinese guide for localization, MCP, skills and third-party model gateways.</desc>
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1600" y2="640" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#101820"/>
-      <stop offset="0.48" stop-color="#17231f"/>
-      <stop offset="1" stop-color="#262018"/>
+    <linearGradient id="paper" x1="120" y1="80" x2="1480" y2="560" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF8ED"/>
+      <stop offset="0.54" stop-color="#F2F8F3"/>
+      <stop offset="1" stop-color="#EAF3FF"/>
     </linearGradient>
-    <linearGradient id="line" x1="260" y1="160" x2="1340" y2="480" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#76E4B8"/>
-      <stop offset="0.5" stop-color="#F2D06B"/>
-      <stop offset="1" stop-color="#F08A5D"/>
+    <linearGradient id="rail" x1="168" y1="504" x2="1432" y2="504" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1F8A70"/>
+      <stop offset="0.48" stop-color="#D49A2A"/>
+      <stop offset="1" stop-color="#3E6AA8"/>
     </linearGradient>
-    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="24" stdDeviation="24" flood-color="#000000" flood-opacity="0.28"/>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="22" stdDeviation="22" flood-color="#101820" flood-opacity="0.18"/>
     </filter>
   </defs>
 
-  <rect width="1600" height="640" rx="48" fill="url(#bg)"/>
-  <path d="M104 518C292 396 414 434 562 318C710 202 832 154 1004 222C1176 290 1288 206 1496 116" stroke="url(#line)" stroke-width="3" stroke-opacity="0.38"/>
-  <path d="M126 548C332 420 446 462 598 350C750 238 884 188 1052 260C1220 332 1336 244 1516 154" stroke="url(#line)" stroke-width="10" stroke-linecap="round" stroke-opacity="0.16"/>
+  <rect width="1600" height="640" rx="44" fill="#18201D"/>
+  <path d="M0 0H1600V640H0V0Z" fill="#18201D"/>
+  <path d="M60 520C274 416 426 458 602 326C778 194 902 174 1072 248C1242 322 1364 238 1544 126" stroke="#F3D58A" stroke-opacity="0.18" stroke-width="18" stroke-linecap="round"/>
+  <path d="M76 548C302 430 448 486 626 354C804 222 930 202 1104 274C1278 346 1392 270 1530 186" stroke="#7FD9B2" stroke-opacity="0.18" stroke-width="8" stroke-linecap="round"/>
 
-  <g filter="url(#softShadow)">
-    <rect x="112" y="104" width="1376" height="432" rx="36" fill="#F7F1E8" fill-opacity="0.94"/>
-    <rect x="112.5" y="104.5" width="1375" height="431" rx="35.5" stroke="#FFFFFF" stroke-opacity="0.7"/>
+  <g filter="url(#shadow)">
+    <rect x="120" y="82" width="1360" height="476" rx="36" fill="url(#paper)"/>
+    <rect x="120.5" y="82.5" width="1359" height="475" rx="35.5" stroke="#FFFFFF" stroke-opacity="0.8"/>
   </g>
 
-  <g transform="translate(184 162)">
-    <rect x="0" y="0" width="116" height="116" rx="28" fill="#181F1B"/>
-    <path d="M58 26C37.6 26 22 41.5 22 61.7C22 82.1 37.7 97 58 97C78.4 97 94 82.1 94 61.7C94 41.5 78.4 26 58 26ZM58 43C68.2 43 76.5 51.2 76.5 61.7C76.5 72.4 68.2 80 58 80C47.8 80 39.5 72.4 39.5 61.7C39.5 51.2 47.8 43 58 43Z" fill="#F7F1E8"/>
-    <path d="M58 54L67 70H49L58 54Z" fill="#76E4B8"/>
+  <g transform="translate(190 146)">
+    <rect width="112" height="112" rx="28" fill="#17231F"/>
+    <path d="M56 24C37.2 24 22 39.2 22 58C22 76.8 37.2 92 56 92C74.8 92 90 76.8 90 58C90 39.2 74.8 24 56 24ZM56 41C65.4 41 73 48.6 73 58C73 67.4 65.4 75 56 75C46.6 75 39 67.4 39 58C39 48.6 46.6 41 56 41Z" fill="#FFF8ED"/>
+    <path d="M56 51L66 68H46L56 51Z" fill="#7FD9B2"/>
   </g>
 
-  <text x="332" y="222" fill="#121814" font-family="Inter, Segoe UI, Microsoft YaHei, Arial, sans-serif" font-size="74" font-weight="800" letter-spacing="0">Claude-Code-ZH</text>
-  <text x="334" y="286" fill="#33423A" font-family="Inter, Segoe UI, Microsoft YaHei, Arial, sans-serif" font-size="32" font-weight="500">Claude 中文化、优化、MCP 迁移与第三方模型接入指南</text>
+  <text x="338" y="205" fill="#17231F" font-family="'Segoe UI', 'Microsoft YaHei', sans-serif" font-size="72" font-weight="800">Claude-Code-ZH</text>
+  <text x="340" y="268" fill="#35463E" font-family="'Segoe UI', 'Microsoft YaHei', sans-serif" font-size="32" font-weight="600">把 Claude Desktop / Claude Code 变成可配置、可验证、可交给 AI 执行的中文工作台</text>
 
-  <g transform="translate(334 346)" font-family="Inter, Segoe UI, Microsoft YaHei, Arial, sans-serif" font-size="24" font-weight="700">
-    <rect x="0" y="0" width="174" height="54" rx="16" fill="#DDF7EB"/>
-    <text x="24" y="36" fill="#116C4A">中文界面</text>
-    <rect x="198" y="0" width="196" height="54" rx="16" fill="#FFF1C7"/>
-    <text x="222" y="36" fill="#8A5E00">第三方模型</text>
-    <rect x="418" y="0" width="142" height="54" rx="16" fill="#FCE0D3"/>
-    <text x="442" y="36" fill="#9A3E1C">MCP</text>
-    <rect x="584" y="0" width="158" height="54" rx="16" fill="#E6E8F8"/>
-    <text x="608" y="36" fill="#303C90">Skills</text>
-    <rect x="766" y="0" width="190" height="54" rx="16" fill="#E7F0EA"/>
-    <text x="790" y="36" fill="#315943">可交给 AI 执行</text>
+  <g transform="translate(340 326)" font-family="'Segoe UI', 'Microsoft YaHei', sans-serif" font-size="24" font-weight="700">
+    <rect x="0" y="0" width="152" height="54" rx="12" fill="#DDF3E9"/>
+    <text x="24" y="36" fill="#17624F">中文化</text>
+    <rect x="174" y="0" width="200" height="54" rx="12" fill="#FFF0C8"/>
+    <text x="198" y="36" fill="#856000">第三方模型</text>
+    <rect x="396" y="0" width="128" height="54" rx="12" fill="#E4F0FF"/>
+    <text x="430" y="36" fill="#285789">MCP</text>
+    <rect x="546" y="0" width="144" height="54" rx="12" fill="#F7E3D6"/>
+    <text x="578" y="36" fill="#8B4324">Skills</text>
+    <rect x="712" y="0" width="214" height="54" rx="12" fill="#EDEBDD"/>
+    <text x="736" y="36" fill="#4C5137">AI 询问后执行</text>
   </g>
 
-  <g transform="translate(1164 154)">
-    <rect x="0" y="0" width="224" height="256" rx="28" fill="#17231F"/>
-    <rect x="28" y="32" width="168" height="20" rx="10" fill="#76E4B8"/>
-    <rect x="28" y="74" width="132" height="16" rx="8" fill="#F7F1E8" fill-opacity="0.9"/>
-    <rect x="28" y="108" width="154" height="16" rx="8" fill="#F7F1E8" fill-opacity="0.7"/>
-    <rect x="28" y="142" width="116" height="16" rx="8" fill="#F7F1E8" fill-opacity="0.55"/>
-    <path d="M54 204L87 172L121 204L170 154" stroke="#F2D06B" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  <g transform="translate(340 446)">
+    <rect x="0" y="0" width="926" height="8" rx="4" fill="url(#rail)"/>
+    <circle cx="0" cy="4" r="15" fill="#1F8A70"/>
+    <circle cx="312" cy="4" r="15" fill="#D49A2A"/>
+    <circle cx="620" cy="4" r="15" fill="#3E6AA8"/>
+    <circle cx="926" cy="4" r="15" fill="#17231F"/>
+  </g>
+
+  <g transform="translate(1170 152)">
+    <rect width="214" height="248" rx="24" fill="#17231F"/>
+    <rect x="28" y="30" width="158" height="18" rx="9" fill="#7FD9B2"/>
+    <rect x="28" y="70" width="116" height="14" rx="7" fill="#FFF8ED" fill-opacity="0.9"/>
+    <rect x="28" y="100" width="146" height="14" rx="7" fill="#FFF8ED" fill-opacity="0.72"/>
+    <rect x="28" y="130" width="92" height="14" rx="7" fill="#FFF8ED" fill-opacity="0.56"/>
+    <path d="M45 190L78 158L112 190L166 132" stroke="#F3D58A" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
   </g>
 </svg>

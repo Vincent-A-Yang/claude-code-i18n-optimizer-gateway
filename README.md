@@ -1,88 +1,127 @@
 # Claude-Code-ZH
 
-![Claude-Code-ZH 横版首图](assets/banner.svg)
+![Claude-Code-ZH](assets/banner.svg)
 
-Claude Desktop / Claude Code 中文化、优化和第三方模型接入指南。
+Claude Desktop / Claude Code 中文化、MCP 迁移、skills 同步与第三方模型接入指南。
 
-把这个仓库链接发给任意 AI 编程工具，让它先读 [`AI_AGENT_GUIDE.md`](AI_AGENT_GUIDE.md)，它就能按本项目的流程帮你安装 Claude、汉化界面、配置第三方模型网关、迁移 MCP / skills，并在关键步骤向你确认。
+这个项目不是“一键乱改系统”的脚本包，而是一套可以交给 AI 工具执行的中文实战手册：AI 先读懂目标，再检查环境，再在关键步骤询问你，最后逐步完成安装、备份、配置、验证和回滚准备。
 
-## 本项目能解决哪些问题？
+## 本项目能解决什么问题？
 
-### 装了 Claude Desktop / Claude Code，却全是英文？
+### 装了 Claude Desktop / Claude Code，却还是英文？
 
-本项目提供安全汉化流程：先备份，再按完整字符串替换 UI 文案，最后用 `node --check` 和 Claude 日志确认没有改坏。
+本项目提供 Claude Desktop 汉化流程：先定位当前安装目录和 JS chunk，备份后只替换完整字符串字面量，修改后用 `node --check` 和日志验证，避免把 Claude 改坏。
 
 ### 想在 Claude Code 上使用第三方模型？
 
-本项目整理了 Anthropic 兼容网关的接入方式：HTTPS、base URL、模型别名、API key、流式与非流式请求验证，以及 Claude 日志里的健康判断。
+本项目整理了 Anthropic 兼容网关接入方式：HTTPS 入口、base URL、是否带 `/v1`、模型别名、API key、流式和非流式请求验证，以及 Claude 日志中的健康状态判断。
 
-### 想把 Codex / OpenCode / 其他 agent 的 MCP 迁到 Claude？
+### MCP 一直 `server disconnected`？
 
-本项目提供 MCP 分类、迁移模板和协议级 smoke test。不是“配置里写上就算成功”，而是实际跑 `initialize` 和 `tools/list`。
+本项目提供 Windows 下的排查路径：`.cmd` 启动方式、stdio JSON-RPC、stdout 脏输出、Python / Node 环境错位、GUI app 环境变量、远程服务不可达和 token 缺失。
 
-### Claude 报 `MCP server disconnected`？
+### 想把 Codex / OpenCode / 其他 agent 的能力迁到 Claude？
 
-本项目提供 Windows 下常见原因排查：`.cmd` 启动方式、stdout 脏输出、Python 环境错位、远程服务不可达、token 缺失、GUI app 环境变量缺失。
+本项目把 MCP 和 skills 拆开处理。MCP 必须先通过 `initialize` 和 `tools/list` smoke test；skills 必须复制为真实目录，不能用快捷方式或 junction 伪装。
 
-### 想把 skills 给 Claude 用？
+### 想把链接发给任意 AI 工具，让它自己配置？
 
-本项目说明了为什么不要用 Windows 快捷方式 / junction 伪装 skills，并提供实目录同步和重复检查脚本。
+本项目提供 [`AI_AGENT_GUIDE.md`](AI_AGENT_GUIDE.md)、[`AGENTS.md`](AGENTS.md)、[`CLAUDE.md`](CLAUDE.md) 和 [`.github/copilot-instructions.md`](.github/copilot-instructions.md)。AI 工具打开仓库后，会知道该先问什么、能做什么、不能碰什么、如何验证。
 
-## 你需要准备什么？
+## 适合谁？
 
-必需：
+- 中文 Windows 用户。
+- 已安装或准备安装 Claude Desktop / Claude Code 的用户。
+- 想让 Claude 使用第三方模型网关的用户。
+- 想把 MCP、skills、开发者设置整理成稳定工作流的用户。
+- 想把配置工作交给 AI agent，但又不希望它越权乱改的用户。
+
+## 不适合谁？
+
+- 想要完全无人确认的一键安装器。
+- 想绕过 Claude 官方安装器或官方账号机制。
+- 想把私有 token、skills、MCP 配置直接发布到公开仓库。
+- 需要完整 macOS / Linux 版操作手册的用户。本项目当前以 Windows 为主。
+
+## 需要准备什么？
+
+基础必需：
 
 - Windows 10 / 11。
 - PowerShell 5.1 或 PowerShell 7。
 - Git。
-- Node.js 18+，用于 `node --check` 和常见 Node MCP。
+- Node.js 18+。
 - 官方 Claude Desktop 或 Claude Code。
 
-按需：
+按需准备：
 
-- GitHub CLI：如果需要自动建仓、推送或接入 GitHub MCP。
-- Docker：只有当你要自己部署 NewAPI、模型网关、反代、数据库或本地服务时才需要。单纯汉化 Claude 不需要 Docker。
-- Tailscale / Caddy / Nginx / IIS：只有当你的第三方模型网关需要 HTTPS 域名入口时才需要。
-- Python 3.10+：只有当你的 MCP 或工具链依赖 Python 时才需要。
-- API key：第三方模型网关、GitHub、搜索服务等各自需要自己的 key。不要提交到仓库。
+- GitHub CLI：需要建仓、推送或接入 GitHub MCP 时使用。
+- Python 3.10+：仅当目标 MCP 或工具链依赖 Python。
+- Docker：仅当你要自建 NewAPI、LiteLLM、one-api、反代、数据库或其他本地服务。单纯汉化 Claude 不需要 Docker。
+- HTTPS 网关：仅当你要让 Claude 接入第三方模型。建议使用域名和有效证书，不建议在 Claude 里直接写裸 IP HTTPS。
+- API key：第三方模型、GitHub、搜索服务或其他云 MCP 的凭据。不要提交到仓库。
 
-## 官方安装入口
+## 官方入口
 
-- Claude Desktop 下载：[claude.com/download](https://claude.com/download)
-- Claude Code 文档：[docs.anthropic.com/en/docs/claude-code](https://docs.anthropic.com/en/docs/claude-code)
-- Claude Code 设置：[docs.anthropic.com/en/docs/claude-code/settings](https://docs.anthropic.com/en/docs/claude-code/settings)
-- Claude Code MCP：[docs.anthropic.com/en/docs/claude-code/mcp](https://docs.anthropic.com/en/docs/claude-code/mcp)
-- Desktop Extensions / MCPB：[claude.com/docs/connectors/building/mcpb](https://claude.com/docs/connectors/building/mcpb)
+- Claude Desktop 下载：[https://claude.com/download](https://claude.com/download)
+- Claude Desktop 安装说明：[Install Claude Desktop](https://support.claude.com/en/articles/10065433-install-claude-desktop)
+- Claude Code overview：[https://code.claude.com/docs/en/overview](https://code.claude.com/docs/en/overview)
+- Claude Code settings：[https://code.claude.com/docs/en/settings](https://code.claude.com/docs/en/settings)
+- Claude Code MCP：[https://code.claude.com/docs/en/mcp](https://code.claude.com/docs/en/mcp)
+- Claude Desktop Extensions / MCPB：[https://claude.com/docs/connectors/building/mcpb](https://claude.com/docs/connectors/building/mcpb)
+- Claude connectors overview：[https://claude.com/docs/connectors/overview](https://claude.com/docs/connectors/overview)
 
-## 给 AI 工具的一句话
+## 把这个项目交给 AI 工具时怎么说？
 
-把下面这段连同仓库链接发给你的 AI 工具：
+把仓库链接和下面这段发给 Codex、Claude Code、OpenCode、Copilot 或其他 AI 工具：
 
 ```text
-请打开这个仓库，先阅读 AI_AGENT_GUIDE.md 和 README.md。按指南帮我安装/检查 Claude Desktop 与 Claude Code，备份配置，汉化界面，配置第三方模型网关，迁移可验证的 MCP 和 skills。涉及安装软件、写入配置、接入 API key、修改 Claude app 文件、迁移高风险 MCP、重启 Claude、推送 GitHub 前，必须先向我确认。不要读取或输出 secrets、tokens、.env、credentials、private keys。
+请打开这个仓库，先阅读 README.md、AI_AGENT_GUIDE.md、AGENTS.md 和 docs/00-start-here.md。
+
+我要配置 Claude Desktop / Claude Code：检查安装状态，备份配置，按需安装或修复 Claude，汉化界面，配置第三方模型网关，迁移可验证的 MCP，复制可用 skills，并完成验证。
+
+要求：
+1. 默认中文回复。
+2. 安装软件、写配置、写 API key、修改 Claude app 文件、复制大量 skills、迁移高风险 MCP、重启 Claude、推送 GitHub 前，必须先问我。
+3. 不读取、不输出、不提交 secrets、tokens、.env、credentials、private keys、真实 Claude 配置、真实 MCP 配置、真实 skills 和日志。
+4. 配置修改前先备份，修改后验证。
+5. MCP 必须通过 initialize 和 tools/list，不通过就不要写入正式配置。
+6. 汉化只能替换完整字符串字面量，修改后执行 node --check。
+7. 最后告诉我做了什么、备份在哪里、验证结果是什么、还有什么没做。
 ```
 
-## 快速执行
+## 人工操作路线
 
-1. 备份 Claude 配置：
+1. 先读 [`docs/00-start-here.md`](docs/00-start-here.md)，确认你要做的是汉化、第三方模型、MCP、skills，还是全套。
+2. 按 [`docs/01-install-claude.md`](docs/01-install-claude.md) 安装或检查 Claude Desktop / Claude Code。
+3. 按 [`docs/02-preparation.md`](docs/02-preparation.md) 准备 Node、Git、可选 Docker、API key、HTTPS 网关和备份目录。
+4. 接第三方模型时读 [`docs/03-third-party-models.md`](docs/03-third-party-models.md)。
+5. 迁移 MCP / skills 时读 [`docs/04-mcp-and-skills.md`](docs/04-mcp-and-skills.md)。
+6. 汉化 Claude Desktop 时读 [`docs/05-i18n.md`](docs/05-i18n.md)。
+7. 出错时读 [`docs/06-troubleshooting.md`](docs/06-troubleshooting.md)。
+8. 完成前按 [`docs/07-acceptance.md`](docs/07-acceptance.md) 验收。
+
+## 脚本入口
+
+备份 Claude 配置：
 
 ```powershell
 .\scripts\Backup-ClaudeConfig.ps1 -BackupRoot .\backups
 ```
 
-2. 检查一个 MCP 是否真能工作：
+测试 stdio MCP：
 
 ```powershell
 .\scripts\Test-McpServer.ps1 -Command "cmd" -McpArgs @("/c", "context7-mcp.cmd", "--transport", "stdio")
 ```
 
-3. dry-run 同步 skills，确认不会用快捷方式：
+dry-run 同步 skills：
 
 ```powershell
 .\scripts\Sync-ClaudeSkills.ps1 -Source "$HOME\.codex\skills" -Destination "$HOME\.claude\skills" -DryRun
 ```
 
-4. dry-run 汉化 Claude app：
+dry-run 汉化 Claude app：
 
 ```powershell
 .\scripts\Patch-ClaudeI18n.ps1 `
@@ -91,41 +130,25 @@ Claude Desktop / Claude Code 中文化、优化和第三方模型接入指南。
   -DryRun
 ```
 
-5. 发布或分享前检查是否误带私有内容：
+发布前敏感信息检查：
 
 ```powershell
 .\scripts\Test-ClaudeProjectHygiene.ps1
 ```
 
-## 推荐阅读顺序
+## 验收标准
 
-- [`AI_AGENT_GUIDE.md`](AI_AGENT_GUIDE.md)：给 AI agent 的自动执行协议。
-- [`docs/install-claude.md`](docs/install-claude.md)：安装 Claude Desktop / Claude Code。
-- [`docs/preparation.md`](docs/preparation.md)：准备项、依赖和确认点。
-- [`docs/i18n.md`](docs/i18n.md)：汉化策略。
-- [`docs/third-party-gateway.md`](docs/third-party-gateway.md)：第三方模型网关。
-- [`docs/mcp-migration.md`](docs/mcp-migration.md)：MCP 迁移。
-- [`docs/verification.md`](docs/verification.md)：验收清单。
+完成后应满足：
 
-## 安全边界
+- Claude Desktop / Claude Code 来自官方安装路径或官方推荐安装方式。
+- 关键配置修改前有备份。
+- 第三方模型网关通过 `/v1/models` 和 `/v1/messages` 验证。
+- MCP 通过 `initialize` 和 `tools/list`。
+- skills 是真实目录，且每个目录有 `SKILL.md`。
+- 汉化改动通过 `node --check`。
+- Claude 重启后日志没有新增致命错误。
+- 仓库内没有真实 token、私有配置、私有 skills、日志、网关地址或内网 IP。
 
-这个仓库不应该包含：
+## 项目边界
 
-- 你的真实 `~/.claude.json`。
-- 你的真实 `claude_desktop_config.json`。
-- API key、token、cookie、private key、`.env`。
-- 私有 skills 内容。
-- 私有 MCP 配置。
-- 本机日志、截图、网关地址或内网 IP。
-
-如果你要公开 fork 或发布自己的版本，先运行：
-
-```powershell
-.\scripts\Test-ClaudeProjectHygiene.ps1
-git diff --check
-git status --short
-```
-
-## 项目状态
-
-这是一个中文优先的 Claude 维护指南项目。它不替代官方安装器，也不承诺适配所有 Claude Desktop 版本。Claude 的打包路径、JS chunk、MCP 机制和设置字段可能随版本变化；每次修改都应先备份、dry-run、验证，再进入下一步。
+本项目不提供破解、不绕过官方授权、不托管任何私有模型 key，也不保证每个 Claude Desktop 版本的 JS chunk 都完全一致。它提供的是可审计、可回滚、可交给 AI agent 执行的工程流程。
